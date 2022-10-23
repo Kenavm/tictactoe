@@ -7,7 +7,7 @@ module.exports = {
  getMenuOption: function() {
     console.log(MENU+"\n");
 
-    let gameMode = prompt("What mode do you wanna play? [1|2|3|4]");
+    let gameMode = prompt("What mode do you wanna play? [1|2|3|4]: ");
 
     if (gameMode === "quit") {
       process.exit();

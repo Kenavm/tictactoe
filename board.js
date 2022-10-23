@@ -1,4 +1,4 @@
-const prompt = require("prompt-sync")();
+
 
 module.exports = {
   getEmptyBoard: function () {
@@ -28,7 +28,8 @@ module.exports = {
 
   isBoardFull: function (board) {
       if(!(board.flat().includes("."))) {
-      console.log("tie");
+      this.displayBoard(board);
+      console.log("it's a tie!");
       process.exit();
     } else return false;
 
@@ -58,7 +59,8 @@ module.exports = {
         if(board[i][j] === currentPlayer) {
           counter++;
           if (counter === 3) {
-            console.log(`${currentPlayer} has won`);
+            this.displayBoard(board);
+            console.log(`Player ${currentPlayer} has won!`);
             process.exit();
           }
         }
@@ -74,10 +76,10 @@ checkColumnsForWinner: function(board, currentPlayer) {
     counter = 0;
     for (let j = 0; j < COLUMNS; j++) {
       if(board[j][i] === currentPlayer) {
-        console.log(board[j][i]);
         counter++;
         if (counter === 3) {
-          console.log(`${currentPlayer} has won`);
+          this.displayBoard(board);
+          console.log(`Player ${currentPlayer} has won!`);
           process.exit();
         }
       }
@@ -87,10 +89,12 @@ checkColumnsForWinner: function(board, currentPlayer) {
 },
 checkDiagonalForWinner: function(board, currentPlayer) {
   if(board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) {
+    this.displayBoard(board);
     console.log(`${currentPlayer} has won!`);
     process.exit();
   }
   if(board[0][2] === currentPlayer && board[1][1] === currentPlayer && board[2][0] === currentPlayer) {
+    this.displayBoard(board);
     console.log(`${currentPlayer} has won!`);
     process.exit();
   }

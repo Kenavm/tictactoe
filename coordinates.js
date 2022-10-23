@@ -3,6 +3,7 @@ let alreadyGuessed = [];
 module.exports = {
   getPlayerMove: function (board, current_player) {
     let move = "";
+    
     while(true) {
       move = prompt(`${current_player}, please put in a move: `);
       if(this.checkIfInputIsValid(move) && (!(alreadyGuessed.includes(move)))) {
