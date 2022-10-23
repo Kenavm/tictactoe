@@ -7,54 +7,74 @@ const RANDOM_AI_VS_RANDOM_AI = 2;
 const HUMAN_VS_RANDOM_AI = 3;
 const HUMAN_VS_UNBEATABLE_AI = 4;
 
+let isGameRunning = true;
+let gameMode = parseInt(menu.getMenuOption());
+let gameBoard = board.getEmptyBoard();
+let currentPlayer = "X";
+
 function main() {
-  let gameMode = menu.getMenuOption();
-  let gameBoard = board.getEmptyBoard();
-  let isGameRunning = true;
-  let currentPlayer = "X";
-  while (isGameRunning) {
-    quit(gameMode);
-   
-    board.displayBoard(gameBoard);
-    
-    /* TODO
-
-        in each new iteration of the while loop the program should 
-        alternate the value of `currentPlayer` from `X` to `O`
-        */
-    
-
-    /* TODO
-
-        based on the value of the variables `game_mode` and `currentPlayer` 
-        the programm should should choose betwen the functions
-        get_random_ai_coordinates or get_umbeatable_ai_coordinates or get_human_coordinates
-        */
-    let humanCoord = coordinate.getPlayerMove(board, currentPlayer);
-    quit(humanCoord);
-    gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
-    
-    
-    /* TODO 
-
-        based on the values of `winning_player` and `its_a_tie` the program
-        should either stop displaying a winning/tie message 
-        OR continue the while loop
-        */
-    board.getWinningPlayer(gameBoard, currentPlayer);
-    board.isBoardFull(gameBoard);
-    currentPlayer = changePlayer(currentPlayer);
+  if (gameMode === HUMAN_VS_HUMAN) {
+    humanVsHuman();
+  } else if (gameMode === RANDOM_AI_VS_RANDOM_AI) {
+    randomAiVsRandomAi();
+  } else if (gameMode === HUMAN_VS_RANDOM_AI) {
+    humanVsRandomAi();
+  } else {
   }
 }
 function changePlayer(currentPlayer) {
-  if(currentPlayer === "X") {
+  if (currentPlayer === "X") {
     return "O";
   } else return "X";
 }
 
 function quit(input) {
-  if(input === "quit") {
+  if (input === "quit") {
     process.exit();
   }
 }
+function humanVsHuman() {
+  while (isGameRunning) {
+    board.displayBoard(gameBoard);
+    let humanCoord = coordinate.getPlayerMove(gameBoard, currentPlayer);
+    quit(humanCoord);
+    gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
+    board.getWinningPlayer(gameBoard, currentPlayer);
+    board.isBoardFull(gameBoard);
+    currentPlayer = changePlayer(currentPlayer);
+  }
+}
+
+function randomAiVsRandomAi() {
+  while (isGameRunning) {
+    board.displayBoard(gameBoard);
+    let AICoord = coordinate.getRandomAiCoordinates(board, currentPlayer);
+    gameBoard[AICoord[0]][AICoord[1]] = currentPlayer;
+    board.getWinningPlayer(gameBoard, currentPlayer);
+    board.isBoardFull(gameBoard);
+    currentPlayer = changePlayer(currentPlayer);
+  }
+}
+
+function humanVsRandomAi() {
+  while (isGameRunning) {
+    if (currentPlayer === "X") {
+      board.displayBoard(gameBoard);
+      let humanCoord = coordinate.getPlayerMove(gameBoard, currentPlayer);
+      quit(humanCoord);
+      gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
+      board.getWinningPlayer(gameBoard, currentPlayer);
+      board.isBoardFull(gameBoard);
+      currentPlayer = changePlayer(currentPlayer);
+    } else {
+      board.displayBoard(gameBoard);
+      let AICoord = coordinate.getRandomAiCoordinates(gameBoard, currentPlayer);
+      gameBoard[AICoord[0]][AICoord[1]] = currentPlayer;
+      board.getWinningPlayer(gameBoard, currentPlayer);
+      board.isBoardFull(gameBoard);
+      currentPlayer = changePlayer(currentPlayer);
+    }
+  }
+}
+
 main();
