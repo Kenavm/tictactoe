@@ -54,11 +54,12 @@ module.exports = {
 
   getRandomAiCoordinates: function (board, current_player) {
     //tbd: check if space in board is already used
-    
-    let coordinatesOfAI = [];
 
+    let coordinatesOfAI = [];
+    
     coordinatesOfAI[0] = Math.floor(Math.random() * 3);
     coordinatesOfAI[1] = Math.floor(Math.random() * 3);
+    
 
     return coordinatesOfAI;
     /*

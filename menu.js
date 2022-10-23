@@ -1,4 +1,5 @@
 const prompt = require("prompt-sync")();
+
 const MENU =
   "1. Human vs Human \n2. Random AI vs Random AI \n3. Human vs Random AI\n4. Human vs Unbeatable AI";
   const VALID_INPUT = ["1", "2", "3", "4"];

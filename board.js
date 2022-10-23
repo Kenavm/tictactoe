@@ -1,18 +1,25 @@
 module.exports = {
   getEmptyBoard: function () {
-    let board = [ [ '.', '.', '.' ], [ '.', '.', '.' ], [ '.', '.', '.' ] ];
+    let board = [
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "."],
+    ];
     return board;
-        /*
+    /*
         Should return a list with 3 sublists.
         Each sublist should contain 3 time the "." character
         */
   },
 
   displayBoard: function (board) {
-      console.log(`${board.join("\n").replace(/,/g, " ")}`);
-      
-    
-    /*
+    console.log("   1 2 3");
+    console.log(`A  ${board[0].join(" ")}\n`);
+    console.log(`B  ${board[1].join(" ")}\n`);
+    console.log(`C  ${board[2].join(" ")}\n`);
+  },
+
+  /*
         Should console.log the tic tac toe board in a format similar to
             1   2   3
             A   X | O | . 
@@ -22,10 +29,9 @@ module.exports = {
             C   0 | X | . 
             --+---+---
         */
-  },
 
   isBoardFull: function (board) {
-      if(!(board.flat().includes("."))) {
+    if (!board.flat().includes(".")) {
       this.displayBoard(board);
       console.log("it's a tie!");
       process.exit();
@@ -38,23 +44,22 @@ module.exports = {
   },
 
   getWinningPlayer: function (board, currentPlayer) {
-  
-  this.checkRowsForWinner(board, currentPlayer);
-  this.checkColumnsForWinner(board, currentPlayer);
-  this.checkDiagonalForWinner(board, currentPlayer);
-    
+    this.checkRowsForWinner(board, currentPlayer);
+    this.checkColumnsForWinner(board, currentPlayer);
+    this.checkDiagonalForWinner(board, currentPlayer);
+
     /*
       Should return the player that wins based on the tic tac toe rules.
       If no player has won, than "None" is returned.
       */
   },
 
-  checkRowsForWinner: function(board, currentPlayer) {
+  checkRowsForWinner: function (board, currentPlayer) {
     let counter = 0;
     for (let i = 0; i < board.length; i++) {
       counter = 0;
       for (let j = 0; j < board[i].length; j++) {
-        if(board[i][j] === currentPlayer) {
+        if (board[i][j] === currentPlayer) {
           counter++;
           if (counter === 3) {
             this.displayBoard(board);
@@ -62,41 +67,47 @@ module.exports = {
             process.exit();
           }
         }
-    
       }
     }
   },
-checkColumnsForWinner: function(board, currentPlayer) {
-  let counter = 0;
-  const COLUMNS = 3
+  checkColumnsForWinner: function (board, currentPlayer) {
+    let counter = 0;
+    const COLUMNS = 3;
 
-  for (let i = 0; i < board.length; i++) {
-    counter = 0;
-    for (let j = 0; j < COLUMNS; j++) {
-      if(board[j][i] === currentPlayer) {
-        counter++;
-        if (counter === 3) {
-          this.displayBoard(board);
-          console.log(`Player ${currentPlayer} has won!`);
-          process.exit();
+    for (let i = 0; i < board.length; i++) {
+      counter = 0;
+      for (let j = 0; j < COLUMNS; j++) {
+        if (board[j][i] === currentPlayer) {
+          counter++;
+          if (counter === 3) {
+            this.displayBoard(board);
+            console.log(`Player ${currentPlayer} has won!`);
+            process.exit();
+          }
         }
       }
-  
     }
-  }
-},
-checkDiagonalForWinner: function(board, currentPlayer) {
-  if(board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) {
-    this.displayBoard(board);
-    console.log(`${currentPlayer} has won!`);
-    process.exit();
-  }
-  if(board[0][2] === currentPlayer && board[1][1] === currentPlayer && board[2][0] === currentPlayer) {
-    this.displayBoard(board);
-    console.log(`${currentPlayer} has won!`);
-    process.exit();
-  }
-}
+  },
+  checkDiagonalForWinner: function (board, currentPlayer) {
+    if (
+      board[0][0] === currentPlayer &&
+      board[1][1] === currentPlayer &&
+      board[2][2] === currentPlayer
+    ) {
+      this.displayBoard(board);
+      console.log(`${currentPlayer} has won!`);
+      process.exit();
+    }
+    if (
+      board[0][2] === currentPlayer &&
+      board[1][1] === currentPlayer &&
+      board[2][0] === currentPlayer
+    ) {
+      this.displayBoard(board);
+      console.log(`${currentPlayer} has won!`);
+      process.exit();
+    }
+  },
 };
 
 // run this function to test whether you have correctly implemented the other function
