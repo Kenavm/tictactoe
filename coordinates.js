@@ -1,7 +1,23 @@
 const prompt = require("prompt-sync")();
-
+let alreadyGuessed = [];
 module.exports = {
   getPlayerMove: function (board, current_player) {
+    let move = "";
+    while(true) {
+      move = prompt(`${current_player}, please put in a move: `);
+      if(this.checkIfInputIsValid(move) && (!(alreadyGuessed.includes(move)))) {
+        alreadyGuessed.push(move);
+        break;
+      }  
+    }
+    
+    let coordinates = [];
+    coordinates.push(this.convertLetterToNumber(move));
+    coordinates.push(parseInt(move[1])-1);
+   
+    return coordinates;
+
+    
     /*
         Should return the read coordinates for the tic tac toe board from the terminal.
         The coordinates should be in the format  letter, number where the letter is 
@@ -13,6 +29,27 @@ module.exports = {
         If the user enters the word "quit" in any format of capitalized letters the program
         should stop.
         */
+  },
+  convertLetterToNumber: function(move) {
+    if(move[0] === "A") {
+      return 0;
+    } else if(move[0] === "B") {
+      return 1;
+    } else return 2;
+  },
+
+  checkIfInputIsValid: function(move) {
+    let VALID_MOVES = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"];
+    if(move === "quit") {
+      process.exit();
+    }
+      if(VALID_MOVES.includes(move)) {
+        return true;
+      } else {
+        console.log("please only use valid inputs")
+        return false;
+      }
+    
   },
 
   getRandomAiCoordinates: function (board, current_player) {

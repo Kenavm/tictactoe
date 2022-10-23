@@ -11,16 +11,18 @@ function main() {
   let gameMode = menu.getMenuOption();
   let gameBoard = board.getEmptyBoard();
   let isGameRunning = true;
-
+  let currentPlayer = "X";
   while (isGameRunning) {
-    board.displayBoard(board);
-
+    quit(gameMode);
+   
+    board.displayBoard(gameBoard);
+    
     /* TODO
 
         in each new iteration of the while loop the program should 
         alternate the value of `currentPlayer` from `X` to `O`
         */
-    let currentPlayer = "X";
+    
 
     /* TODO
 
@@ -29,18 +31,30 @@ function main() {
         get_random_ai_coordinates or get_umbeatable_ai_coordinates or get_human_coordinates
         */
     let humanCoord = coordinate.getPlayerMove(board, currentPlayer);
-
+    quit(humanCoord);
     gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
-
+    
+    
     /* TODO 
 
         based on the values of `winning_player` and `its_a_tie` the program
         should either stop displaying a winning/tie message 
         OR continue the while loop
         */
-    let winningPlayer = board.getWinningPlayer(gameBoard);
-    let itsATie = board.isBoardFull(gameBoard);
+    board.getWinningPlayer(gameBoard, currentPlayer);
+    board.isBoardFull(gameBoard);
+    currentPlayer = changePlayer(currentPlayer);
   }
 }
+function changePlayer(currentPlayer) {
+  if(currentPlayer === "X") {
+    return "O";
+  } else return "X";
+}
 
+function quit(input) {
+  if(input === "quit") {
+    process.exit();
+  }
+}
 main();
