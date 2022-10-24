@@ -58,7 +58,6 @@ module.exports = {
       let coordinatesOfAI = [];
       coordinatesOfAI.push(Math.floor(Math.random() * 3));
       coordinatesOfAI.push(Math.floor(Math.random() * 3));
-      console.log(board[coordinatesOfAI[0]][coordinatesOfAI[1]]);
       if (board[coordinatesOfAI[0]][coordinatesOfAI[1]] === ".") {
         return coordinatesOfAI;
       }
