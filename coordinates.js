@@ -1,12 +1,13 @@
 const board = require("./board");
 const prompt = require("prompt-sync")();
 let alreadyGuessed = [];
+
 module.exports = {
-  getPlayerMove: function (board, current_player) {
+  getPlayerMove: function (currentPlayer) {
     let move = "";
 
     while (true) {
-      move = prompt(`${current_player}, please put in a move: `);
+      move = prompt(`${currentPlayer}, please put in a move: `);
       if (this.checkIfInputIsValid(move) && !alreadyGuessed.includes(move)) {
         alreadyGuessed.push(move);
         break;
@@ -52,16 +53,17 @@ module.exports = {
     }
   },
 
-  getRandomAiCoordinates: function (board, current_player) {
-    //tbd: check if space in board is already used
+  getRandomAiCoordinates: function (board) {
+    while (true) {
+      let coordinatesOfAI = [];
+      coordinatesOfAI.push(Math.floor(Math.random() * 3));
+      coordinatesOfAI.push(Math.floor(Math.random() * 3));
+      console.log(board[coordinatesOfAI[0]][coordinatesOfAI[1]]);
+      if (board[coordinatesOfAI[0]][coordinatesOfAI[1]] === ".") {
+        return coordinatesOfAI;
+      }
+    }
 
-    let coordinatesOfAI = [];
-    
-    coordinatesOfAI[0] = Math.floor(Math.random() * 3);
-    coordinatesOfAI[1] = Math.floor(Math.random() * 3);
-    
-
-    return coordinatesOfAI;
     /*
         Should return a tuple of 2 numbers. 
         Each number should be between 0-2.
