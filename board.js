@@ -13,10 +13,10 @@ module.exports = {
   },
 
   displayBoard: function (board) {
-    console.log("   1  2  3");
-    console.log(`A  ${board[0].join("  ")}\n`);
-    console.log(`B  ${board[1].join("  ")}\n`);
-    console.log(`C  ${board[2].join("  ")}\n`);
+    console.log("   1 2 3");
+    console.log(`A  ${board[0].join(" ")}\n`);
+    console.log(`B  ${board[1].join(" ")}\n`);
+    console.log(`C  ${board[2].join(" ")}\n`);
   },
 
   /*
@@ -32,26 +32,21 @@ module.exports = {
 
   isBoardFull: function (board) {
     if (!board.flat().includes(".")) {
-      this.displayBoard(board);
-      console.log("it's a tie!");
-      process.exit();
+      return true;
     } else return false;
 
-    /*
-        should return True if there are no more empty place on the board,
-        otherwise should return False
-        */
   },
 
     getWinningPlayer: function (board, currentPlayer) {
-    this.checkRowsForWinner(board, currentPlayer);
-    this.checkColumnsForWinner(board, currentPlayer);
-    this.checkDiagonalForWinner(board, currentPlayer);
-
-    /*
-      Should return the player that wins based on the tic tac toe rules.
-      If no player has won, than "None" is returned.
-      */
+    if (this.checkRowsForWinner(board, currentPlayer)) {
+      return true;
+    } else if(this.checkColumnsForWinner(board, currentPlayer)) {
+      return true;
+    } else if(this.checkDiagonalForWinner(board, currentPlayer)) {
+      return true;
+    } else {
+      return false;
+    }
   },
 
   checkRowsForWinner: function (board, currentPlayer) {
@@ -62,9 +57,7 @@ module.exports = {
         if (board[i][j] === currentPlayer) {
           counter++;
           if (counter === 3) {
-            this.displayBoard(board);
-            console.log(`Player ${currentPlayer} has won!`);
-            process.exit();
+            return true;
           }
         }
       }
@@ -80,9 +73,7 @@ module.exports = {
         if (board[j][i] === currentPlayer) {
           counter++;
           if (counter === 3) {
-            this.displayBoard(board);
-            console.log(`Player ${currentPlayer} has won!`);
-            process.exit();
+            return true;
           }
         }
       }
@@ -94,18 +85,14 @@ module.exports = {
       board[1][1] === currentPlayer &&
       board[2][2] === currentPlayer
     ) {
-      this.displayBoard(board);
-      console.log(`${currentPlayer} has won!`);
-      process.exit();
+      return true;
     }
     if (
       board[0][2] === currentPlayer &&
       board[1][1] === currentPlayer &&
       board[2][0] === currentPlayer
     ) {
-      this.displayBoard(board);
-      console.log(`${currentPlayer} has won!`);
-      process.exit();
+      return true;
     }
   },
 };

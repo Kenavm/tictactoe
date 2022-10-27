@@ -20,7 +20,6 @@ module.exports = {
     coordinates.push(parseInt(move[1]) - 1);
 
     return coordinates;
-
   },
   convertLetterToNumber: function (move) {
     if (move[0] === "A") {
@@ -54,16 +53,38 @@ module.exports = {
     }
   },
 
-  getUnbeatableAiCoordinates: function (gameBoard, depth, isMaximizing, currentPlayer) {
+  getUnbeatableAiCoordinates: function (
+    gameBoard,
+    depth,
+    isMaximizing,
+    currentPlayer
+  ) {
+    let scores = {
+      X: 1,
+      O: -1,
+      tie: 0,
+    };
+    if (board.getWinningPlayer(gameBoard, "X")) {
+      return 1;
+    } else if (board.getWinningPlayer(gameBoard, "O")) {
+      return -1;
+    } else if (board.isBoardFull(gameBoard)) {
+      return 0;
+    }
+
     if (isMaximizing) {
       let bestScore = -Infinity;
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           // Is the spot available?
-          if (gameBoard[i][j] === '.') {
+          if (gameBoard[i][j] === ".") {
             gameBoard[i][j] = "X";
-            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, false);
-            gameBoard[i][j] = '.';
+            let score = this.getUnbeatableAiCoordinates(
+              gameBoard,
+              depth + 1,
+              false
+            );
+            gameBoard[i][j] = ".";
             bestScore = Math.max(score, bestScore);
           }
         }
@@ -74,10 +95,14 @@ module.exports = {
       for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
           // Is the spot available?
-          if (gameBoard[i][j] === '.') {
+          if (gameBoard[i][j] === ".") {
             gameBoard[i][j] = "O";
-            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, true);
-            gameBoard[i][j] = '.';
+            let score = this.getUnbeatableAiCoordinates(
+              gameBoard,
+              depth + 1,
+              true
+            );
+            gameBoard[i][j] = ".";
             bestScore = Math.min(score, bestScore);
           }
         }
@@ -144,4 +169,3 @@ function checkCoordinates() {
   console.log("The console.loged coordinate should either (0, 2) or (2, 0)");
   console.log(getUnbeatableAiCoordinates(board_6));
 }
-
