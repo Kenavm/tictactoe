@@ -65,6 +65,15 @@ function humanVsRandomAi() {
     }
   }
 }
+
+let score={
+  X:0,
+  O:-1,
+  tie:0,
+}
+
+
+
 function humanVsUnbeatableAi() {
   // AI to make its turn
   while (true) {
