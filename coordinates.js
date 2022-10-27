@@ -61,8 +61,8 @@ module.exports = {
         for (let j = 0; j < 3; j++) {
           // Is the spot available?
           if (gameBoard[i][j] === '.') {
-            gameBoard[i][j] = currentPlayer;
-            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, false, currentPlayer);
+            gameBoard[i][j] = "X";
+            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, false);
             gameBoard[i][j] = '.';
             bestScore = Math.max(score, bestScore);
           }
@@ -75,8 +75,8 @@ module.exports = {
         for (let j = 0; j < 3; j++) {
           // Is the spot available?
           if (gameBoard[i][j] === '.') {
-            gameBoard[i][j] = currentPlayer;
-            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, true, currentPlayer);
+            gameBoard[i][j] = "O";
+            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, true);
             gameBoard[i][j] = '.';
             bestScore = Math.min(score, bestScore);
           }

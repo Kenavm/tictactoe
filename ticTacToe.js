@@ -95,12 +95,10 @@ function humanVsUnbeatableAi() {
             if (score > bestScore) {
               bestScore = score;
               move = { i, j };
-              console.log(move);
             }
           }
         }
       }
-      console.log(move);
       gameBoard[move.i][move.j] = currentPlayer;
       board.getWinningPlayer(gameBoard, currentPlayer);
       board.isBoardFull(gameBoard);
