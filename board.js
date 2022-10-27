@@ -6,10 +6,7 @@ module.exports = {
       [".", ".", "."],
     ];
     return board;
-    /*
-        Should return a list with 3 sublists.
-        Each sublist should contain 3 time the "." character
-        */
+  
   },
 
   displayBoard: function (board) {
@@ -19,16 +16,6 @@ module.exports = {
     console.log(`C  ${board[2].join("  ")}\n`);
   },
 
-  /*
-        Should console.log the tic tac toe board in a format similar to
-            1   2   3
-            A   X | O | . 
-            ---+---+---
-            B   X | O | .
-            --+---+---
-            C   0 | X | . 
-            --+---+---
-        */
 
   isBoardFull: function (board) {
     if (!board.flat().includes(".")) {

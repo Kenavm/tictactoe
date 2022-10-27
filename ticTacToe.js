@@ -32,13 +32,13 @@ function humanVsHuman() {
     gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
     let winningPlayer = board.getWinningPlayer(gameBoard, currentPlayer);
     if (winningPlayer) {
-      this.displayBoard(gameBoard);
+      board.displayBoard(gameBoard);
       console.log(`Player ${currentPlayer} has won!`);
       process.exit();
     }
     if (winningPlayer != NULL)
       if (board.isBoardFull(gameBoard)) {
-        this.displayBoard(gameBoard);
+        board.displayBoard(gameBoard);
         console.log(`tie!`);
         process.exit();
       }
@@ -50,7 +50,12 @@ function randomAiVsRandomAi() {
     board.displayBoard(gameBoard);
     let AICoord = coordinate.getRandomAiCoordinates(gameBoard);
     gameBoard[AICoord[0]][AICoord[1]] = currentPlayer;
-    board.getWinningPlayer(gameBoard, currentPlayer);
+    let winningPlayer = board.getWinningPlayer(gameBoard, currentPlayer);
+    if (winningPlayer) {
+      board.displayBoard(gameBoard);
+      console.log(`Player ${currentPlayer} has won!`);
+      process.exit();
+    }
     let isBoardFull = board.isBoardFull(gameBoard);
     if (isBoardFull) {
       board.displayBoard(gameBoard);
@@ -67,7 +72,12 @@ function humanVsRandomAi() {
       let humanCoord = coordinate.getPlayerMove(currentPlayer);
       quit(humanCoord);
       gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
-      board.getWinningPlayer(gameBoard, currentPlayer);
+      let winningPlayer = board.getWinningPlayer(gameBoard, currentPlayer);
+      if (winningPlayer) {
+        board.displayBoard(gameBoard);
+        console.log(`Player ${currentPlayer} has won!`);
+        process.exit();
+      }
       let isBoardFull = board.isBoardFull(gameBoard);
       if (isBoardFull) {
         board.displayBoard(gameBoard);
