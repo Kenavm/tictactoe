@@ -19,7 +19,7 @@ function main() {
     randomAiVsRandomAi();
   } else if (gameMode === HUMAN_VS_RANDOM_AI) {
     humanVsRandomAi();
-  } else {
+  } else if (gameMode === HUMAN_VS_UNBEATABLE_AI) {
     humanVsUnbeatableAi();
   }
 }
@@ -38,7 +38,7 @@ function humanVsHuman() {
 function randomAiVsRandomAi() {
   while (isGameRunning) {
     board.displayBoard(gameBoard);
-    let AICoord = coordinate.getRandomAiCoordinates(board);
+    let AICoord = coordinate.getRandomAiCoordinates(gameBoard);
     gameBoard[AICoord[0]][AICoord[1]] = currentPlayer;
     board.getWinningPlayer(gameBoard, currentPlayer);
     board.isBoardFull(gameBoard);
@@ -66,7 +66,47 @@ function humanVsRandomAi() {
   }
 }
 function humanVsUnbeatableAi() {
-
+  // AI to make its turn
+  while (true) {
+    if (currentPlayer === "O") {
+      board.displayBoard(gameBoard);
+      let humanCoord = coordinate.getPlayerMove(currentPlayer);
+      quit(humanCoord);
+      gameBoard[humanCoord[0]][humanCoord[1]] = currentPlayer;
+      board.getWinningPlayer(gameBoard, currentPlayer);
+      board.isBoardFull(gameBoard);
+      currentPlayer = changePlayer(currentPlayer);
+    } else {
+      board.displayBoard(gameBoard);
+      let bestScore = -Infinity;
+      let move;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          // Is the spot available?
+          if (gameBoard[i][j] === ".") {
+            gameBoard[i][j] = currentPlayer;
+            let score = coordinate.getUnbeatableAiCoordinates(
+              gameBoard,
+              0,
+              false,
+              currentPlayer
+            );
+            gameBoard[i][j] = ".";
+            if (score > bestScore) {
+              bestScore = score;
+              move = { i, j };
+              console.log(move);
+            }
+          }
+        }
+      }
+      console.log(move);
+      gameBoard[move.i][move.j] = currentPlayer;
+      board.getWinningPlayer(gameBoard, currentPlayer);
+      board.isBoardFull(gameBoard);
+      currentPlayer = changePlayer(currentPlayer);
+    }
+  }
 }
 function changePlayer(currentPlayer) {
   if (currentPlayer === "X") {

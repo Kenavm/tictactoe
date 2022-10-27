@@ -2,11 +2,10 @@ const prompt = require("prompt-sync")();
 
 const MENU =
   "1. Human vs Human \n2. Random AI vs Random AI \n3. Human vs Random AI\n4. Human vs Unbeatable AI";
-  const VALID_INPUT = ["1", "2", "3", "4"];
+const VALID_INPUT = ["1", "2", "3", "4"];
 module.exports = {
-
- getMenuOption: function() {
-    console.log(MENU+"\n");
+  getMenuOption: function () {
+    console.log(MENU + "\n");
 
     let gameMode = prompt("What mode do you wanna play? [1|2|3|4]: ");
 
@@ -30,13 +29,11 @@ module.exports = {
         asking to input a new value.
         */
   },
-}
+};
 
 // run this function to test whether you have correctly implemented the other function
-function checkOptions()
-{
-    let option = getMenuOption();
-    console.log("If the user selected 1, it should print 1");
-    console.log(option);
+function checkOptions() {
+  let option = getMenuOption();
+  console.log("If the user selected 1, it should print 1");
+  console.log(option);
 }
-

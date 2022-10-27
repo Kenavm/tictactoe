@@ -1,3 +1,4 @@
+const { getWinningPlayer } = require("./board");
 const board = require("./board");
 const prompt = require("prompt-sync")();
 let alreadyGuessed = [];
@@ -20,17 +21,6 @@ module.exports = {
 
     return coordinates;
 
-    /*
-        Should return the read coordinates for the tic tac toe board from the terminal.
-        The coordinates should be in the format  letter, number where the letter is 
-        A, B or C and the number 1, 2 or 3.
-        If the user enters an invalid coordinate (like Z0 or 1A, A11, sadfdsaf) 
-        than a warning message should appear and the coordinates reading process repeated.
-        If the user enters a coordinate that is already taken on the board.
-        than a warning message should appear and the coordinates reading process repeated.
-        If the user enters the word "quit" in any format of capitalized letters the program
-        should stop.
-        */
   },
   convertLetterToNumber: function (move) {
     if (move[0] === "A") {
@@ -53,35 +43,47 @@ module.exports = {
     }
   },
 
-  getRandomAiCoordinates: function (board) {
+  getRandomAiCoordinates: function (gameBoard) {
     while (true) {
       let coordinatesOfAI = [];
       coordinatesOfAI.push(Math.floor(Math.random() * 3));
       coordinatesOfAI.push(Math.floor(Math.random() * 3));
-      if (board[coordinatesOfAI[0]][coordinatesOfAI[1]] === ".") {
+      if (gameBoard[coordinatesOfAI[0]][coordinatesOfAI[1]] === ".") {
         return coordinatesOfAI;
       }
     }
-
-    /*
-        Should return a tuple of 2 numbers. 
-        Each number should be between 0-2.
-        The chosen number should be only a free coordinate from the board.
-        If the board is full (all spots taken by either X or O) than "None"
-        should be returned.
-        */
   },
 
-  getUnbeatableAiCoordinates: function (board, current_player) {
-    /*
-        Should return an array of 2 numbers. 
-        Each number should be between 0-2.
-        The chosen number should be only a free coordinate from the board.
-        The chosen coordinate should always stop the other player from winning or
-        maximize the current player's chances to win.
-        If the board is full (all spots taken by either X or O) than "None"
-        should be returned.
-        */
+  getUnbeatableAiCoordinates: function (gameBoard, depth, isMaximizing, currentPlayer) {
+    if (isMaximizing) {
+      let bestScore = -Infinity;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          // Is the spot available?
+          if (gameBoard[i][j] === '.') {
+            gameBoard[i][j] = currentPlayer;
+            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, false, currentPlayer);
+            gameBoard[i][j] = '.';
+            bestScore = Math.max(score, bestScore);
+          }
+        }
+      }
+      return bestScore;
+    } else {
+      let bestScore = Infinity;
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          // Is the spot available?
+          if (gameBoard[i][j] === '.') {
+            gameBoard[i][j] = currentPlayer;
+            let score = this.getUnbeatableAiCoordinates(gameBoard, depth + 1, true, currentPlayer);
+            gameBoard[i][j] = '.';
+            bestScore = Math.min(score, bestScore);
+          }
+        }
+      }
+      return bestScore;
+    }
   },
 };
 
@@ -142,3 +144,4 @@ function checkCoordinates() {
   console.log("The console.loged coordinate should either (0, 2) or (2, 0)");
   console.log(getUnbeatableAiCoordinates(board_6));
 }
+

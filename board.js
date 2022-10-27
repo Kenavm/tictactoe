@@ -43,7 +43,7 @@ module.exports = {
         */
   },
 
-  getWinningPlayer: function (board, currentPlayer) {
+    getWinningPlayer: function (board, currentPlayer) {
     this.checkRowsForWinner(board, currentPlayer);
     this.checkColumnsForWinner(board, currentPlayer);
     this.checkDiagonalForWinner(board, currentPlayer);
