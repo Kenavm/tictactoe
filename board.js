@@ -13,10 +13,10 @@ module.exports = {
   },
 
   displayBoard: function (board) {
-    console.log("   1 2 3");
-    console.log(`A  ${board[0].join(" ")}\n`);
-    console.log(`B  ${board[1].join(" ")}\n`);
-    console.log(`C  ${board[2].join(" ")}\n`);
+    console.log("   1  2  3");
+    console.log(`A  ${board[0].join("  ")}\n`);
+    console.log(`B  ${board[1].join("  ")}\n`);
+    console.log(`C  ${board[2].join("  ")}\n`);
   },
 
   /*
