@@ -36,7 +36,8 @@ function humanVsHuman() {
       console.log(`Player ${currentPlayer} has won!`);
       process.exit();
     }
-    if (winningPlayer != NULL)
+    let isBoardFull = board.isBoardFull(gameBoard);
+    if (isBoardFull)
       if (board.isBoardFull(gameBoard)) {
         board.displayBoard(gameBoard);
         console.log(`tie!`);
@@ -89,7 +90,12 @@ function humanVsRandomAi() {
       board.displayBoard(gameBoard);
       let AICoord = coordinate.getRandomAiCoordinates(gameBoard);
       gameBoard[AICoord[0]][AICoord[1]] = currentPlayer;
-      board.getWinningPlayer(gameBoard, currentPlayer);
+      let winningPlayer = board.getWinningPlayer(gameBoard, currentPlayer);
+      if (winningPlayer) {
+        board.displayBoard(gameBoard);
+        console.log(`Player ${currentPlayer} has won!`);
+        process.exit();
+      }
       let isBoardFull = board.isBoardFull(gameBoard);
       if (isBoardFull) {
         board.displayBoard(gameBoard);

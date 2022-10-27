@@ -18,7 +18,6 @@ module.exports = {
       gameMode = prompt("Please use another input: ");
     }
     return gameMode;
-
   },
 };
 

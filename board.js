@@ -6,7 +6,6 @@ module.exports = {
       [".", ".", "."],
     ];
     return board;
-  
   },
 
   displayBoard: function (board) {
@@ -16,20 +15,18 @@ module.exports = {
     console.log(`C  ${board[2].join("  ")}\n`);
   },
 
-
   isBoardFull: function (board) {
     if (!board.flat().includes(".")) {
       return true;
     } else return false;
-
   },
 
-    getWinningPlayer: function (board, currentPlayer) {
+  getWinningPlayer: function (board, currentPlayer) {
     if (this.checkRowsForWinner(board, currentPlayer)) {
       return true;
-    } else if(this.checkColumnsForWinner(board, currentPlayer)) {
+    } else if (this.checkColumnsForWinner(board, currentPlayer)) {
       return true;
-    } else if(this.checkDiagonalForWinner(board, currentPlayer)) {
+    } else if (this.checkDiagonalForWinner(board, currentPlayer)) {
       return true;
     } else {
       return false;
