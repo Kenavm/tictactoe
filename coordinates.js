@@ -56,14 +56,9 @@ module.exports = {
   getUnbeatableAiCoordinates: function (
     gameBoard,
     depth,
-    isMaximizing,
-    currentPlayer
+    isMaximizing
   ) {
-    let scores = {
-      X: 1,
-      O: -1,
-      tie: 0,
-    };
+   
     if (board.getWinningPlayer(gameBoard, "X")) {
       return 1;
     } else if (board.getWinningPlayer(gameBoard, "O")) {
