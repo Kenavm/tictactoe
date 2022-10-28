@@ -46,7 +46,7 @@ function humanVsHuman() {
     currentPlayer = changePlayer(currentPlayer);
   }
 }
-function randomAiVsRandomAi() {
+async function randomAiVsRandomAi() {
   while (isGameRunning) {
     board.displayBoard(gameBoard);
     let AICoord = coordinate.getRandomAiCoordinates(gameBoard);
@@ -64,9 +64,10 @@ function randomAiVsRandomAi() {
       process.exit();
     }
     currentPlayer = changePlayer(currentPlayer);
+    await delay(1000);
   }
 }
-function humanVsRandomAi() {
+async function humanVsRandomAi() {
   while (isGameRunning) {
     if (currentPlayer === "X") {
       board.displayBoard(gameBoard);
@@ -87,6 +88,7 @@ function humanVsRandomAi() {
       }
       currentPlayer = changePlayer(currentPlayer);
     } else {
+      await delay(500);
       board.displayBoard(gameBoard);
       let AICoord = coordinate.getRandomAiCoordinates(gameBoard);
       gameBoard[AICoord[0]][AICoord[1]] = currentPlayer;
@@ -177,6 +179,12 @@ function quit(input) {
   if (input === "quit") {
     process.exit();
   }
+}
+
+function delay(milliseconds){
+  return new Promise(resolve => {
+      setTimeout(resolve, milliseconds);
+  });
 }
 
 main();
